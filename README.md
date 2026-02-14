@@ -5,6 +5,9 @@
 :white_check_mark: VS Code
 :white_check_mark: DBeaver
 :white_check_mark: Kiro CLI
+:white_check_mark: AWS CLI
+:white_check_mark: AWS SAM CLI
+:white_check_mark: AWS CLI
 
 
 <img width="731" height="632" alt="challenge1-basic_environment" src="https://github.com/user-attachments/assets/cc37f927-52b8-464d-bfc0-0ecd99cfec48" />
@@ -20,7 +23,12 @@
 ```
 # set keyboard layout PT-BR
 setxkbmap br
+
+# some packages requeriments
+sudo apt install -y unzip curl
 ```
+
+
 
 ### Git + VS Code + DBeaver (db client) + xRDP (RDP Server)
 
@@ -86,9 +94,50 @@ cd .. && mv bia bia@${hash}
 ```
 
 
-### Kiro-CLI
+### AWS CLI
 
-Steps: [https://kiro.dev/docs/cli](https://kiro.dev/docs/cli)
+Steps to install: [docs.aws.amazon.com/cli/getting-started-install.html](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+
+```
+cd ~/Downloads
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+aws --version && \
+  echo "Install OK" || echo " *** FAIL ***"
+```
+
+
+### AWS SAM CLI
+
+Steps to install: [docs.aws.amazon.com/install-sam-cli.html](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html)
+
+```
+cd ~/Downloads
+wget "https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip"
+unzip aws-sam-cli-linux-x86_64.zip -d sam-installation
+sudo ./sam-installation/install
+sam --version && \
+  echo "Install OK" || echo " *** FAIL ***"
+```
+
+
+### AWS SAM Plugin
+
+Steps: [docs.aws.amazon.com/install-plugin-debian-and-ubuntu.html](https://docs.aws.amazon.com/systems-manager/latest/userguide/install-plugin-debian-and-ubuntu.html)
+
+```
+cd ~/Downloads
+curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb"
+sudo dpkg -i session-manager-plugin.deb
+aws ssm --version && \
+  echo "Install OK" || echo " *** FAIL ***"  
+```
+
+
+### Kiro CLI
+
+Steps to install: [https://kiro.dev/docs/cli](https://kiro.dev/docs/cli)
 
 ```
 # install
@@ -100,6 +149,22 @@ echo "PATH=$PATH:/home/$USER/.local/bin" >> ~/.bashrc
 # reload terminal
 . ~/.bashrc
 ```
+
+
+### Node.js
+
+Steps to install: [digitalocean.com/how-to-install-node-js-on-ubuntu-20-04](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04)
+
+```
+cd ~
+curl -sL https://deb.nodesource.com/setup_21.x -o /tmp/nodesource_setup.sh
+#nano /tmp/nodesource_setup.sh
+sudo bash /tmp/nodesource_setup.sh
+sudo apt install -y nodejs
+echo "Node version: $(node -v)" && echo "NPM version: $(npm -v)" && \
+  echo "Install OK" || echo " *** FAIL ***"
+```
+
 
 
 # Starting with BIA

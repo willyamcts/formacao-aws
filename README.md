@@ -7,7 +7,7 @@
 :white_check_mark: Kiro CLI
 :white_check_mark: AWS CLI
 :white_check_mark: AWS SAM CLI
-:white_check_mark: AWS CLI
+:white_check_mark: Node.js v21
 
 
 <img width="731" height="632" alt="challenge1-basic_environment" src="https://github.com/user-attachments/assets/cc37f927-52b8-464d-bfc0-0ecd99cfec48" />
@@ -24,16 +24,20 @@
 # set keyboard layout PT-BR
 setxkbmap br
 
+# install RDP Server to remote access
+sudo apt install -y xrdp
+
 # some packages requeriments
 sudo apt install -y unzip curl
 ```
 
 
 
-### Git + VS Code + DBeaver (db client) + xRDP (RDP Server)
+### Git + VS Code + DBeaver (db client)
 
-In VS Code: install extension "GitHub Pull Request"
-
+In VS Code, install extensions:
+* GitHub Pull Request
+* Amazon Q
 
 ```
 sudo apt install -y git
@@ -177,3 +181,36 @@ docker compose up -d && \
   ( docker compose exec server bash -c 'npx sequelize db:migrate' || "$(grep -E '^docker' README.md)" )
 
 ```
+
+
+
+# Settings
+
+### Connect AWS CLI
+
+```
+# set Access Key generated in IAM (with policy permissions: AmazonSSMFullAccess, AmazonEC2ContainerRegistryFullAccess)
+aws configure
+# or another profile...
+aws configure --profile lab-fundamentals
+
+# output:
+AWS Access Key ID [None]: AKIARW5xxxxxxx
+AWS Secret Access Key [None]: <......>
+Default region name [None]: us-east-1
+Default output format [None]: table
+
+
+# test
+aws ecr describe-repositories
+```
+
+
+### Connect EC2 via SSM
+
+Script in [github.com/henrylle/bia/start-session-bash.sh](hhttps://github.com/henrylle/bia/blob/main/scripts/start-session-bash.sh)
+
+```
+aws ssm start-session --target <ID_EC2_INSTANCE>
+```
+

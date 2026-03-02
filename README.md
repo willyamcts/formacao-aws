@@ -186,7 +186,7 @@ docker compose up -d && \
 
 # Settings
 
-### Connect AWS CLI
+### Connect AWS CLI - Local Host
 
 ```
 # set Access Key generated in IAM (with policy permissions: AmazonSSMFullAccess, AmazonEC2ContainerRegistryFullAccess)
@@ -208,9 +208,50 @@ aws ecr describe-repositories
 
 ### Connect EC2 via SSM
 
+To connection SSM you need the IAM Role and the minimum AmazonSSMFullAccess permission.
+
 Script in [github.com/henrylle/bia/start-session-bash.sh](hhttps://github.com/henrylle/bia/blob/main/scripts/start-session-bash.sh)
 
 ```
 aws ssm start-session --target <ID_EC2_INSTANCE>
 ```
 
+
+## Installations in EC2 - Amazon 2023
+
+More: https://github.com/henrylle/bia/blob/main/scripts/user_data_ec2_zona_a.sh
+
+
+### Install docker + compose + buildx
+
+```
+# docker
+sudo yum install -y git docker && \
+  service docker start && \
+  systemctl enable docker && \
+  echo "Docker instaled and active with service in starting host"
+
+# docker compose
+docer compose version || \
+  sudo curl -SL https://github.com/docker/compose/releases/latest/download/docker-compose-linux-$(uname -m) -o /usr/libexec/docker/cli-plugins/docker-compose && \
+  sudo chmod +x /usr/libexec/docker/cli-plugins/docker-compose
+
+# docker build
+sudo curl -fSL https://github.com/docker/buildx/releases/download/v0.17.1/buildx-v0.17.1.linux-amd64 \
+  -o /usr/libexec/docker/cli-plugins/docker-buildx
+sudo chmod +x /usr/libexec/docker/cli-plugins/docker-buildx
+```
+
+
+### AWS CLI + Plugin SSM
+
+```
+# AWS CLI
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
+  unzip awscliv2.zip && \
+  sudo ./aws/install && \
+  aws --version &&   echo "Install OK" || echo " *** FAIL ***"
+
+# SSM Plugin
+sudo dnf install -y https://s3.amazonaws.com/session-manager-downloads/plugin/latest/linux_64bit/session-manager-plugin.rpm
+```

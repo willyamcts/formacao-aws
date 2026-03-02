@@ -9,9 +9,18 @@
 :white_check_mark: AWS SAM CLI
 :white_check_mark: Node.js v21
 
+### Challenge 1
 
 <img width="731" height="632" alt="challenge1-basic_environment" src="https://github.com/user-attachments/assets/cc37f927-52b8-464d-bfc0-0ecd99cfec48" />
 
+### Challenge 3
+
+<img alt="challenge1-basic_environment" src="https://raw.githubusercontent.com/willyamcts/formacao-aws/refs/heads/0-fundamentals/diagrams/3-%20fundamentals%20-%20S3%20to%20API%20to%20RDS.png" />
+
+
+### Challenge 4
+
+<img alt="challenge1-basic_environment" src="https://raw.githubusercontent.com/willyamcts/formacao-aws/refs/heads/0-fundamentals/diagrams/4-%20fundamentals%20-%20SSM%20tunnel.png" />
 
 
 

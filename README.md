@@ -18,7 +18,7 @@
 <img alt="challenge1-basic_environment" src="https://raw.githubusercontent.com/willyamcts/formacao-aws/refs/heads/0-fundamentals/diagrams/3-%20fundamentals%20-%20S3%20to%20API%20to%20RDS.png" />
 
 
-Instructions to assets in S3 bucket.
+Instructions to assets in S3 bucket ([docs.aws/AmazonS3/HostingWebsiteOnS3Setup](https://docs.aws.amazon.com/AmazonS3/latest/userguide/HostingWebsiteOnS3Setup.html#step2-create-bucket-config-as-website))...
 ```
 # build project to send S3 bucket
 docker cp bia:/usr/src/app/client/build .

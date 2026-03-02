@@ -18,6 +18,19 @@
 <img alt="challenge1-basic_environment" src="https://raw.githubusercontent.com/willyamcts/formacao-aws/refs/heads/0-fundamentals/diagrams/3-%20fundamentals%20-%20S3%20to%20API%20to%20RDS.png" />
 
 
+Instructions to assets in S3 bucket.
+```
+# build project to send S3 bucket
+docker cp bia:/usr/src/app/client/build .
+#VITE_API_URL=http://localhost:3001 npm run build
+
+# send dir to S3
+aws s3 sync ./build s3://bia-fundamentals
+
+# In AWS S3 > select bucket > Properties > "Bucket website endpoint" (last item of page)
+```
+
+
 ### Challenge 4
 
 <img alt="challenge1-basic_environment" src="https://raw.githubusercontent.com/willyamcts/formacao-aws/refs/heads/0-fundamentals/diagrams/4-%20fundamentals%20-%20SSM%20tunnel.png" />

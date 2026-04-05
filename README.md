@@ -56,7 +56,7 @@ setxkbmap br
 sudo apt install -y xrdp
 
 # some packages requeriments
-sudo apt install -y unzip curl
+sudo apt install -y unzip curl python3 python3-pip python3.12-venv jq
 ```
 
 
@@ -180,6 +180,11 @@ echo "PATH=$PATH:/home/$USER/.local/bin" >> ~/.bashrc
 
 # reload terminal
 . ~/.bashrc
+```
+
+To usage MCP Servers is required UVS:
+```
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
 

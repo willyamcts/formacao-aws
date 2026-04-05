@@ -8,8 +8,8 @@
 ##
 
 DIR_ROOT=$HOME/formacao-aws
-API_IP="${1:-1.1.1.1}"
-DB_FQDN="${2:-bia-db.cqzmsio0yzwj.us-east-1.rds.amazonaws.com}"
+API_IP="${1}"
+DB_FQDN="${2}"
 WEB_PORT_EXTERNAL=80
 
 clear
@@ -47,7 +47,3 @@ VITE_API_URL=http://${1} npm run build
 
 
 #sed -i "s#RUN cd client && VITE_API_URL.*#RUN cd client && VITE_API_URL=http://$1 npm run build#" ${DIR_ROOT}/bia/Dockerfile
-
-
-
-

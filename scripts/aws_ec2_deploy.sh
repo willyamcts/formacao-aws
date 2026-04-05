@@ -85,7 +85,7 @@ case $is_test in
   --security-group-ids ${secgroup_id} \
   --tag-specifications file://tags.json \
   --instance-type ${instance_type} \
-  --user-data file://bia/scripts/user_data_ec2_zona_a.sh
+  --user-data file://data/user_data_ec2_zona_a.sh
         ;;
     * )
     aws ec2 run-instances --image-id ${ami_id} --count 1 \
@@ -94,7 +94,7 @@ case $is_test in
   --security-group-ids ${secgroup_id} \
   --tag-specifications file://tags.json \
   --instance-type ${instance_type} \
-  --user-data file://bia/scripts/user_data_ec2_zona_a.sh
+  --user-data file://data/user_data_ec2_zona_a.sh
         ;;
 esac
 

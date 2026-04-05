@@ -37,7 +37,7 @@ fi
 
 # list all instances EC2 with name, status and id
 aws ec2 describe-instances --query 'Reservations[].Instances[].[Tags[?Key==`Name`].Value|[0],State.Name,InstanceId]' --output table
-read -p "Entry instance ID to connect (80:8080): " instance_id_to_connect
+read -p "Entry instance ID to connect (80:80): " instance_id_to_connect
 
 # get internal IP address
 #aws ec2 describe-instances --filters "Name=instance-id, Values=${instance_id_to_connect}" --query 'Reservations[].Instances[].[PrivateIpAddress,InstanceId]' --output table
@@ -70,7 +70,7 @@ echo "  * Tunnel PID to ${instance_ip_to_connect}: $(cat /var/tmp/aws_tunnel_${i
 if [[ ! -z "$DNS_RDS"  ]]; then
   setsid aws ssm start-session --target "$INSTANCE_BRIDGE" \
     --document-name AWS-StartPortForwardingSessionToRemoteHost \
-    --parameters '{"host":["'$DNS_RDS'"],"portNumber":["5432"],"localPortNumber":["5433"]}' \
+    --parameters '{"host":["'$DNS_RDS'"],"portNumber":["5432"],"localPortNumber":["5432"]}' \
     > ssm_tunnel_rds.log 2>&1 &
 
   echo $! > /var/tmp/aws_ssm_rds_tunnel.pid

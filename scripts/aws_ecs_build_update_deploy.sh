@@ -6,10 +6,10 @@
 
 set -e
 
-# Configurações
+cd bia
+
+# Configs
 REGION="us-east-1"
-ECR_REPO="fundamentals/bia"
-TASK_FAMILY="bia-task-definition"
 
 # Verificar parâmetros
 if [ $# -ne 2 ]; then
@@ -49,6 +49,47 @@ if [ $# -ne 2 ]; then
         echo "Seleção inválida"
         exit 1
     fi
+
+
+    echo
+    echo "=== Tasks no Service $SERVICE ==="
+    TASKS=$(aws ecs list-task-definitions --output text | awk -F':' '{print $(NF-1)}' | sort -u)
+
+    if [ -z "$TASKS" ]; then
+        echo "Nenhuma task encontrada"
+        exit 1
+    fi
+
+    echo "$TASKS" | nl
+    echo
+    read -p "Selecione o número da task: " TASK_NUM
+    TASK_FAMILY=$(echo "$TASKS" | sed -n "${TASK_NUM}p" | awk -F'/' '{print $NF}')
+
+    if [ -z "$TASK_FAMILY" ]; then
+        echo "Seleção inválida"
+        exit 1
+    fi
+
+
+    echo
+    echo "=== Repositorio ECR ==="
+    REPOSITORIES=$(aws ecr describe-repositories --query 'repositories[].repositoryName' --output text)
+
+    if [ -z "$REPOSITORIES" ]; then
+        echo "Nenhum repositorio encontrado"
+        exit 1
+    fi
+
+    echo "$REPOSITORIES" | nl
+    echo
+    read -p "Selecione o número do repositorio: " REPOSITORY_NUM
+    REPOSITORY=$(echo "$REPOSITORIES" | sed -n "${REPOSITORY_NUM}p")
+
+    if [ -z "$REPOSITORY" ]; then
+        echo "Seleção inválida"
+        exit 1
+    fi
+
 else
     CLUSTER="$1"
     SERVICE="$2"
@@ -84,7 +125,7 @@ fi
 
 # Obter Account ID
 ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
-ECR_URI="$ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com/$ECR_REPO"
+ECR_URI="$ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com/$REPOSITORY"
 
 echo
 log "Configurações:"

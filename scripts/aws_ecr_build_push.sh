@@ -14,6 +14,8 @@ ECR_FQND=$(echo ${ECR_URI} | awk -F'/' '{print $1}')
 REPOSITORY_NAME=$(echo ${ECR_URI} | cut -d'/' -f2-)
 #IP_API=$(grep -Po '\d+\.\d+\.\d+\.\d+' ${DIR_BIA}/Dockerfile)
 IP_API=$(grep -oE 'https?://[^ ]+' ${DIR_BIA}/Dockerfile |cut -d'/' -f3)
+IMAGE_NAME_LOCAL="${REPOSITORY_NAME}:${IP_API}-$(date +%d%m%y_%H%M)"
+IMAGE_NAME_REMOTE=$IMAGE_NAME_LOCAL
 
 
 [[ -z $ECR_URI ]] && \
@@ -30,6 +32,6 @@ echo "
 
 cd $DIR_BIA
 aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ECR_FQND
-docker build -t "${REPOSITORY_NAME}:${IP_API}" .
-docker tag ${REPOSITORY_NAME}:${IP_API} $ECR_FQND/${REPOSITORY_NAME}:${IP_API}
-docker push $ECR_FQND/${REPOSITORY_NAME}:${IP_API}
+docker build -t "${IMAGE_NAME_LOCAL}" .
+docker tag ${IMAGE_NAME_LOCAL} $ECR_FQND/${IMAGE_NAME_REMOTE}
+docker push $ECR_FQND/${IMAGE_NAME_REMOTE}

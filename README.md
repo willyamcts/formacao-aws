@@ -10,7 +10,7 @@
 :white_check_mark: Node.js v21
 
 
-[Guide of settings here](https://github.com/willyamcts/formacao-aws/blob/0-fundamentals/ENVIRONMENT.md)
+- [Environment settings in Wiki page](https://github.com/willyamcts/formacao-aws/wiki)
 
 
 

@@ -9,7 +9,9 @@
 :white_check_mark: AWS SAM CLI
 :white_check_mark: Node.js v21
 
-- [Settings guide here](https://github.com/willyamcts/formacao-aws/blob/main/ENVIRONMENT.md)
+
+- [Environment settings in Wiki page](https://github.com/willyamcts/formacao-aws/wiki)
+
 
 
 # Challenges

@@ -1,5 +1,24 @@
 # bastion-lambda
 
+
+### Test local
+
+The field `instance_id` in JSON of `echo` commando replace INSTANCE_ID in `tamplate.yaml` file.
+
+```bash
+# start EC2 instance
+echo '{"action":"start", "instance_id":"i-05e6517e24b3a78d7"}' | sam local invoke BastionSchedulerFunction  --event -
+
+# stop EC2 instance
+echo '{"action":"stop", "instance_id":"i-05e6517e24b3a78d7"}' | sam local invoke BastionSchedulerFunction  --event -
+```
+
+
+
+
+-------------
+
+# Default content of file
 This project contains source code and supporting files for a serverless application that you can deploy with the SAM CLI. It includes the following files and folders.
 
 - hello_world - Code for the application's Lambda function.

@@ -1,49 +1,51 @@
 # Lambda Functions
 
 ```mermaid
-flowchart TD
-    %% Actors and Triggers
-    User((User))
-    Cron([Amazon EventBridge\nCron: 07 AM & 06 PM])
+---
+config:
+  layout: fixed
+---
+flowchart TB
+ subgraph Automation["Automation"]
+        LambdaCron["Lambda
+            Start/Stop Bastion"]
+  end
+ subgraph AccessManagement["Access Management"]
+        LambdaIP["Lambda
+            get-bastion-ip"]
+  end
+ subgraph AWS["AWS Cloud VPC"]
+    direction TB
+        Automation
+        AccessManagement
+        Bastion["EC2 Instance
+        Bastion Host
+        Dynamic Public IP"]
+        RDS[("Amazon RDS
+        PostgreSQL - Port 5432")]
+  end
+    Cron(["Amazon EventBridge
+    Cron: 07 AM & 06 PM"]) -- Triggers function --> LambdaCron
+    LambdaCron -- Start (7AM) / Stop (6PM) --> Bastion
+    User(("User")) -- Manual Execution
+    (CLI / Script) --> LambdaIP
+    LambdaIP -- Check state &
+    Return Public IP --> Bastion
+    Bastion -. Returns IP .-> LambdaIP
+    LambdaIP -. Delivers IP .-> User
+    User == "1. Open SSM Tunnel" ==> Bastion
+    Bastion == "2. Forward Traffic" ==> RDS
 
-    %% AWS Environment
-    subgraph AWS [AWS Cloud - VPC]
-        direction TB
-        
-        subgraph Automation
-            LambdaCron[Lambda\nStart/Stop Bastion]
-        end
-        
-        subgraph AccessManagement[Access Management]
-            LambdaIP[Lambda\nget-bastion-ip]
-        end
-
-        Bastion[EC2 Instance\nBastion Host\nDynamic Public IP]
-        RDS[(Amazon RDS\nPostgreSQL - Port 5432)]
-    end
-
-    %% Flow 1: Automation (Cron)
-    Cron -- "Triggers function" --> LambdaCron
-    LambdaCron -- "Start (7AM) / Stop (6PM)" --> Bastion
-
-    %% Flow 2: IP Discovery
-    User -- "Manual Execution\n(CLI / Script)" --> LambdaIP
-    LambdaIP -- "Check state &\nReturn Public IP" --> Bastion
-    Bastion -. "Returns IP" .-> LambdaIP
-    LambdaIP -. "Delivers IP" .-> User
-    
-    %% Flow 3: Connection (Tunneling)
-    User ==>|1. Open SSH Tunnel via IP| Bastion
-    Bastion ==>|2. Forward Traffic| RDS
-
-    %% Styles
-    classDef aws fill:#FF9900,stroke:#232F3E,stroke-width:2px,color:white;
-    classDef db fill:#336791,stroke:#232F3E,stroke-width:2px,color:white;
-    classDef user fill:#4285F4,stroke:#232F3E,stroke-width:2px,color:white;
-    
-    class LambdaCron,LambdaIP,Cron,Bastion aws;
-    class RDS db;
-    class User user;
+     LambdaCron:::aws
+     LambdaIP:::aws
+     Bastion:::aws
+     RDS:::db
+     Cron:::aws
+     User:::user
+    classDef aws fill:#FF9900,stroke:#232F3E,stroke-width:2px,color:white
+    classDef db fill:#336791,stroke:#232F3E,stroke-width:2px,color:white
+    classDef user fill:#4285F4,stroke:#232F3E,stroke-width:2px,color:white
+    style User fill:#C8E6C9,color:#000000
 ```
 
 

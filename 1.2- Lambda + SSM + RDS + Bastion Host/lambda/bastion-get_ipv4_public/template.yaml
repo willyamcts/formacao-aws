@@ -1,0 +1,16 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  GetBastionIPFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/
+      Handler: get_ipv4_public.lambda_handler
+      Runtime: python3.12
+      Timeout: 10
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action: ec2:DescribeInstances
+              Resource: "*"

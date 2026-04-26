@@ -8,16 +8,16 @@ Functions:
 
 
 
-# Function: Scheduling start/stop instance
+# Lambda function: scheduling instance start/stop times
 
-Leave instance enabled only during business hours.
+Objective: Leave instance enabled only during business hours.
 
-Function in the `lambda/bastion-scheduling` directory.
+* Function in the `lambda/bastion-scheduling` directory.
 
 
 ### Test local
 
-The field `instance_id` in JSON of `echo` command, replace INSTANCE_ID in `template.yaml` file.
+The field `instance_id` of `echo` command, replace INSTANCE_ID from `template.yaml` file.
 
 ```bash
 # start EC2 instance
@@ -27,14 +27,14 @@ echo '{"action":"start", "instance_id":"i-05e6517e24b3a78d7"}' | sam local invok
 echo '{"action":"stop", "instance_id":"i-05e6517e24b3a78d7"}' | sam local invoke BastionSchedulerFunction  --event -
 ```
 
-For fix instance ID, replace `INSTANCE_ID` in `template.yaml` file
+For fix instance ID, replace `INSTANCE_ID` in `template.yaml` file.
 
 
 
 
 
 
-# Function: Get IPv4 address of instances
+# Lambda function: get IPv4 address of instances
 
 Developers who need the instance's public IPv4 address to connect. This lambda function only returns the IPv4 address (get), and does not allow any other execution. This is to avoid using Elastic IP or releasing the full listing of instances -- zero trust principle.
 
@@ -64,7 +64,7 @@ See `scripts/bastion-get_ip.sh`
 
 
 
-# Both cases (build, deploy and delete
+# Lambda -- build, deploy and delete
 
 ### Build and Deploy
 

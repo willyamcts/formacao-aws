@@ -12,7 +12,7 @@ Globals:
 
     Environment:
       Variables:
-        INSTANCE_ID: i-xxxxxxxxxxxxxxxxx
+        INSTANCE_ID: i-05e6517e24b3a78d7
 
 Resources:
 
@@ -34,7 +34,7 @@ Resources:
   StartBastionRule:
     Type: AWS::Events::Rule
     Properties:
-      ScheduleExpression: cron(55 13 * * ? *)  # 08:00 Brasil
+      ScheduleExpression: cron(30 17 * * ? *)  # 08:00 Brasil
       Targets:
         - Arn: !GetAtt BastionSchedulerFunction.Arn
           Id: "StartBastion"
@@ -46,7 +46,7 @@ Resources:
   StopBastionRule:
     Type: AWS::Events::Rule
     Properties:
-      ScheduleExpression: cron(10 14 * * ? *)  # 18:00 Brasil
+      ScheduleExpression: cron(35 17 * * ? *)  # 18:00 Brasil
       Targets:
         - Arn: !GetAtt BastionSchedulerFunction.Arn
           Id: "StopBastion"

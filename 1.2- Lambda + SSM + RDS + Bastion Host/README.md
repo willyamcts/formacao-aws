@@ -1,5 +1,51 @@
 # Lambda Functions
 
+```mermaid
+flowchart TD
+    %% Actors and Triggers
+    User((User))
+    Cron([Amazon EventBridge\nCron: 07 AM & 06 PM])
+
+    %% AWS Environment
+    subgraph AWS [AWS Cloud - VPC]
+        direction TB
+        
+        subgraph Automation
+            LambdaCron[Lambda\nStart/Stop Bastion]
+        end
+        
+        subgraph AccessManagement[Access Management]
+            LambdaIP[Lambda\nget-bastion-ip]
+        end
+
+        Bastion[EC2 Instance\nBastion Host\nDynamic Public IP]
+        RDS[(Amazon RDS\nPostgreSQL - Port 5432)]
+    end
+
+    %% Flow 1: Automation (Cron)
+    Cron -- "Triggers function" --> LambdaCron
+    LambdaCron -- "Start (7AM) / Stop (6PM)" --> Bastion
+
+    %% Flow 2: IP Discovery
+    User -- "Manual Execution\n(CLI / Script)" --> LambdaIP
+    LambdaIP -- "Check state &\nReturn Public IP" --> Bastion
+    Bastion -. "Returns IP" .-> LambdaIP
+    LambdaIP -. "Delivers IP" .-> User
+    
+    %% Flow 3: Connection (Tunneling)
+    User ==>|1. Open SSH Tunnel via IP| Bastion
+    Bastion ==>|2. Forward Traffic| RDS
+
+    %% Styles
+    classDef aws fill:#FF9900,stroke:#232F3E,stroke-width:2px,color:white;
+    classDef db fill:#336791,stroke:#232F3E,stroke-width:2px,color:white;
+    classDef user fill:#4285F4,stroke:#232F3E,stroke-width:2px,color:white;
+    
+    class LambdaCron,LambdaIP,Cron,Bastion aws;
+    class RDS db;
+    class User user;
+```
+
 
 Functions:
 

@@ -1,0 +1,72 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  bastion-lambda
+
+  Sample SAM Template for bastion-lambda
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 3
+
+    Environment:
+      Variables:
+        INSTANCE_ID: i-xxxxxxxxxxxxxxxxx
+
+Resources:
+
+  BastionSchedulerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: .
+      Handler: src/handlers/bastion.lambda_handler
+      Runtime: python3.11
+      Timeout: 30
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action:
+                - ec2:StartInstances
+                - ec2:StopInstances
+              Resource: "*"
+
+  StartBastionRule:
+    Type: AWS::Events::Rule
+    Properties:
+      ScheduleExpression: cron(55 13 * * ? *)  # 08:00 Brasil
+      Targets:
+        - Arn: !GetAtt BastionSchedulerFunction.Arn
+          Id: "StartBastion"
+          Input: |
+            {
+              "action": "start"
+            }
+
+  StopBastionRule:
+    Type: AWS::Events::Rule
+    Properties:
+      ScheduleExpression: cron(10 14 * * ? *)  # 18:00 Brasil
+      Targets:
+        - Arn: !GetAtt BastionSchedulerFunction.Arn
+          Id: "StopBastion"
+          Input: |
+            {
+              "action": "stop"
+            }
+
+  PermissionStart:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref BastionSchedulerFunction
+      Action: lambda:InvokeFunction
+      Principal: events.amazonaws.com
+      SourceArn: !GetAtt StartBastionRule.Arn
+
+  PermissionStop:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref BastionSchedulerFunction
+      Action: lambda:InvokeFunction
+      Principal: events.amazonaws.com
+      SourceArn: !GetAtt StopBastionRule.Arn

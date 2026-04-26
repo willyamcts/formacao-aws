@@ -1,4 +1,4 @@
-# Lambda Function
+# Lambda Functions
 
 
 Functions:
@@ -8,9 +8,9 @@ Functions:
 
 
 
-# Lambda function: scheduling instance start/stop times
+# Function: scheduling instance start/stop times
 
-Objective: Leave instance enabled only during business hours.
+**Objective**: Leave instance enabled only during business hours.
 
 * Function in the `lambda/bastion-scheduling` directory.
 
@@ -34,7 +34,9 @@ For fix instance ID, replace `INSTANCE_ID` in `template.yaml` file.
 
 
 
-# Lambda function: get IPv4 address of instances
+# Function: get IPv4 address of instances
+
+**Objective**: To provide only public IPv4 addresses, not allowing EC2:DescribeInstance or the use of Elastic IP resource.
 
 Developers who need the instance's public IPv4 address to connect. This lambda function only returns the IPv4 address (get), and does not allow any other execution. This is to avoid using Elastic IP or releasing the full listing of instances -- zero trust principle.
 

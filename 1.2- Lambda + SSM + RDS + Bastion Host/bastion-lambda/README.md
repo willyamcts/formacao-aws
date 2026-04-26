@@ -3,7 +3,7 @@
 
 ### Test local
 
-The field `instance_id` in JSON of `echo` commando replace INSTANCE_ID in `tamplate.yaml` file.
+The field `instance_id` in JSON of `echo` command, replace INSTANCE_ID in `template.yaml` file.
 
 ```bash
 # start EC2 instance
@@ -13,7 +13,25 @@ echo '{"action":"start", "instance_id":"i-05e6517e24b3a78d7"}' | sam local invok
 echo '{"action":"stop", "instance_id":"i-05e6517e24b3a78d7"}' | sam local invoke BastionSchedulerFunction  --event -
 ```
 
+For fix instance ID, replace `INSTANCE_ID` in `template.yaml` file
 
+
+### Deploy
+
+```bash
+# first running
+sam deploy --guided #--profile default
+
+# next runnings
+sam deploy #--profile default
+```
+
+
+### Remove function of Lambda
+
+```bash
+sam delete #--profile default
+```
 
 
 -------------

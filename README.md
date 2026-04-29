@@ -23,7 +23,7 @@
 | N. | Diagram | Description / Objective |
 |---------|-------|-------|
 | 1 | <img align="left" width="80%" src="https://github.com/willyamcts/formacao-aws/blob/labs/diagrams/1.1-%20EC2%20%2B%20Docker%20%2B%20MSSQL%20%2B%20RDS%20%2B%20S3.png" alt="image" /> | **EC2 + Docker + MSSQL + RDS + S3** </br> </br> Migrating a database from an on-premises/EC2 environment to Amazon RDS and then from RDS back to on-premises using Docker. |
-
+| 2 | <img align="left" width="80%" src="https://github.com/willyamcts/training-aws/blob/labs/diagrams/1.2-%20EC2%20+%20Lambda%20+%20RDS%20+%20Bastion%20Host.png" alt="image" /> | **EC2 + Lambda + RDS + Bastion Host** </br> </br> Create two Lambda functions: one to schedule the startup and shutdown of the bastion host, and another to obtain the public IP address of the bastion host (without using Elastic IPs or the EC2:DescribeInstance policy for the user). Using a bash script, retrieve the IP address of the bastion instance via the Lambda function and connect to RDS through a port tunnel. |
 
 ### Preparatories
 

@@ -3,12 +3,10 @@
 - [Access Wiki page](https://github.com/willyamcts/formacao-aws/wiki)
 
 
-# Diagrams of the challenges
+# Diagram from the last challenge
 
-## Last challenge
+**Objective**: See [README](https://github.com/willyamcts/training-aws) in branch main
 
-Objective:
-Migrating a database from an on-premises/EC2 environment to Amazon RDS and then from RDS back to on-premises using Docker.
 
 <img alt="last_challenge" src="https://raw.githubusercontent.com/willyamcts/formacao-aws/refs/heads/labs/diagrams/last.png" />
 

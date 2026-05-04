@@ -1,5 +1,6 @@
 # Diagram
 
+```mermaid
 flowchart LR
     internet([clients]) -->|80| ec2[EC2 BIA-Web]
 
@@ -10,7 +11,7 @@ flowchart LR
 
     sg1 -.-> ec2
     sg2 -.-> db
-
+```
 
 
 # Creating CSV to populate DB
@@ -29,7 +30,9 @@ Connect database in locally. Consider a restricted Security Group, allowing acce
 
 ```
 # port-forwarding via SSM
-aws ssm start-session --target i-0140262f25477f754 --document-name AWS-StartPortForwardingSessionToRemoteHost --parameters '{"host":["bia-aurora.cluster-cqzmsio0yzwj.us-east-1.rds.amazonaws.com"],"portNumber":["5432"],"localPortNumber":["5432"]}'
+aws ssm start-session --target i-0140262f25477f754 \
+  --document-name AWS-StartPortForwardingSessionToRemoteHost \
+  --parameters '{"host":["bia-aurora.cluster-cqzmsio0yzwj.us-east-1.rds.amazonaws.com"],"portNumber":["5432"],"localPortNumber":["5432"]}'
 ```
 
 

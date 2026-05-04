@@ -12,5 +12,7 @@ for i in $(ls data-*.csv); do
   echo "Importando arquivo $i"
   PASSWORD="$DB_PASSWORD" psql -h "$DB_HOST" \
     -p "$DB_PORT" \
-    -d "$DB_NAME" -U "$DB_USER" -c "\COPY public.\"Tarefas\" FROM "data-${i}.csv" DELIMITER ',' CSV"
+    -d "$DB_NAME" \
+    -U "$DB_USER" \
+    -c "$DB_USER" -c "\COPY public.\"Tarefas\" FROM "data-${i}.csv" DELIMITER ',' CSV"
 done

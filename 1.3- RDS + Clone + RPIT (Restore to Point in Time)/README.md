@@ -91,3 +91,13 @@ module.exports = {
   }
 };
 ```
+
+Copy file generated to container:
+```
+docker cp database/migrations/20260504022606-rezise-title.js bia:/usr/src/app/database/migrations/20260504022606-rezise-title.js
+```
+
+Running resize:
+```
+docker compose exec server bash -c 'npx sequelize db:migrate'
+```

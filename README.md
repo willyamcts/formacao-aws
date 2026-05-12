@@ -30,6 +30,7 @@
 | N. | Diagram | Description / Objective |
 |---------|-------|-------|
 | [1](https://github.com/willyamcts/training-aws/tree/0-fundamentals) | <img align="left" width="50%" src="https://github.com/willyamcts/formacao-aws/blob/0-fundamentals/diagrams/1-EC2%2BDocker%2BBIA_app.drawio.png" alt="image" /> | **EC2 + Docker + BIA App** </br> </br> Basic environment settings to start. |
+| [2](https://github.com/willyamcts/training-aws/tree/0-fundamentals) |  | **EC2 + Docker + BIA App + SSM + SSH** </br> </br> Launch an instance EC2 with BIA App and create a connection SSM and SSH. After build image Docker and send image to ECR. |
 | [3](https://github.com/willyamcts/training-aws/tree/0-fundamentals) | <img align="left" width="80%" src="https://github.com/willyamcts/formacao-aws/blob/0-fundamentals/diagrams/3-EC2%2BDocker%2BECS%2BRDS%2BS3%2BECR.drawio.png" alt="image" /> | **EC2 + Docker + ECS + RDS + S3** </br> </br> Run the BIA application on ECS (cluster with only one instance); assets should be delivered from the S3 bucket. |
 | [4](https://github.com/willyamcts/training-aws/tree/0-fundamentals) | <img align="left" width="80%" src="https://github.com/willyamcts/formacao-aws/blob/0-fundamentals/diagrams/4-Bastion_tunnel%2BEC2%2BDocker%2BECS%2BRDS%2BS3%2BECR.drawio.png" alt="image" /> | **Bastion Host + ECS + EC2 + Docker + RDS + S3 + ECR**  </br> </br> Create a script to launch a bastion host to connect to production resources. Perform remote port mapping on the local machine through the bastion host. |
 

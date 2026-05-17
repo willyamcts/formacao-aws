@@ -5,6 +5,7 @@ sudo yum update -y
 sudo yum install git -y
 sudo yum install docker -y
 sudo yum install jq -y
+sudo dnf install postgresql17 -y
 
 #Instalar AWS CLI v2
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
@@ -41,7 +42,7 @@ sudo yum install -y nodejs
 
 #Configurar python 3.11 e uv para uso com mcp servers da aws
 sudo dnf install python3.11 -y
-sudo ln -sf /usr/bin/python3.11 /usr/bin/python3
+sudo ln -sf /usr/bin/python3.11 /usr/bin/python3 #sudo ln -sf /usr/bin/python3.9 /usr/bin/python3
 
 sudo -u ec2-user bash -c 'curl -LsSf https://astral.sh/uv/install.sh | sh'
 echo 'export PATH="$HOME/.local/bin:$PATH"' >> /home/ec2-user/.bashrc
